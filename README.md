@@ -8,14 +8,14 @@ In an interactive Claude Code session:
 
 ```
 /plugin marketplace add KshitijBharambe/fable-skills
-/plugin install kshtj-expert-skills
+/plugin install fable-skills
 ```
 
 Or test locally before pushing:
 
 ```
 /plugin marketplace add /Users/kshtj/skills
-/plugin install kshtj-expert-skills
+/plugin install fable-skills
 ```
 
 Once installed, the skills auto-load by their descriptions whenever a relevant task comes up — no manual invocation needed.

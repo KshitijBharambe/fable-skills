@@ -5,7 +5,7 @@
   },
   "plugins": [
     {
-      "name": "kshtj-expert-skills",
+      "name": "fable-skills",
       "source": "./",
       "description": "50 expert software-engineering skills across AI, backend, frontend, architecture, security, UX, and more."
     }

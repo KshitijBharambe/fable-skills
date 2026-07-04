@@ -17,7 +17,7 @@ ROOT = Path(__file__).parent.resolve()
 SKILLS_DIR = ROOT / "skills"
 MANIFEST_DIR = ROOT / ".claude-plugin"
 
-PLUGIN_NAME = "kshtj-expert-skills"
+PLUGIN_NAME = "fable-skills"
 PLUGIN_VERSION = "1.0.0"
 PLUGIN_DESC = "50 expert software-engineering skills across AI, backend, frontend, architecture, security, UX, and more."
 AUTHOR = "KshitijBharambe"
