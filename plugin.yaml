@@ -1,0 +1,6 @@
+name: fable-skills
+version: 1.0.0
+description: 50 expert software-engineering skills across AI, backend, frontend, architecture, security, UX, and more.
+author: KshitijBharambe
+# Skills live in skills/<name>/SKILL.md, each with its own frontmatter (name + description).
+skills: skills/
