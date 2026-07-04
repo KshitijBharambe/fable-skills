@@ -1,4 +1,4 @@
-# Kshitij's Expert Skills
+# Fable's Expert Skills Pack
 
 50 expert software-engineering skills for [Claude Code](https://claude.com/claude-code), spanning AI, backend, frontend, architecture, security, UX, debugging, and engineering judgment.
 
