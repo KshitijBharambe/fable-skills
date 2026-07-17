@@ -63,7 +63,7 @@ Use animation to explain causality, state, and spatial relationships — duratio
 - Else if a surface enters over context (modal, drawer) → 200–300 ms; modal: fade + scale 0.96→1 with ease-out; drawer: translate from its docked edge; scrim fades in parallel slightly faster.
 - Else if items reorder/insert/delete in a list → FLIP-move survivors (200 ms standard), fade+collapse the removed (exit first, then close the gap — or simultaneously at small sizes), stagger inserts ≤30 ms.
 - Else if navigation between peers (tabs, steps) → directional slide 10–20% width + crossfade, 200–250 ms; direction encodes the mental model (forward = content moves left in LTR).
-- Else if progress/waiting → see loading-states skill; motion here is honesty (indeterminate spinner <1 s wait, progress bar beyond), never entertainment that outlives the wait.
+- Else if progress/waiting → see interface-states skill; motion here is honesty (indeterminate spinner <1 s wait, progress bar beyond), never entertainment that outlives the wait.
 - If the animation is gesture-driven (swipe, drag) → track the finger 1:1 while touching; on release, spring with the gesture's velocity to the nearest valid state. Duration-based curves feel dead here.
 - If brand wants "more delight" → concentrate expression in rare, meaningful moments (first-run, success/completion, empty states) — never on workhorse interactions.
 

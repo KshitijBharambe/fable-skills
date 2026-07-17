@@ -10,6 +10,7 @@ Original category/*.md files are left untouched.
 """
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -18,13 +19,13 @@ SKILLS_DIR = ROOT / "skills"
 MANIFEST_DIR = ROOT / ".claude-plugin"
 
 PLUGIN_NAME = "fable-skills"
-PLUGIN_VERSION = "1.0.0"
-PLUGIN_DESC = "50 expert software-engineering skills across AI, backend, frontend, architecture, security, UX, and more."
+PLUGIN_VERSION = "2.0.0"
+PLUGIN_DESC = "55 expert software-engineering skills across AI, backend, frontend, architecture, security, testing, UX, deployment, and more."
 AUTHOR = "KshitijBharambe"
 REPO = "KshitijBharambe/fable-skills"  # GitHub owner/repo the marketplace is pushed to
 
 # Skip these top-level dirs / files
-IGNORE_DIRS = {"skills", ".claude-plugin", "memory", ".git"}
+IGNORE_DIRS = {"skills", ".claude-plugin", "memory", ".git", "docs"}
 
 
 def slugify(name: str) -> str:
@@ -69,7 +70,11 @@ def yaml_escape(s: str) -> str:
 
 
 def main():
-    SKILLS_DIR.mkdir(exist_ok=True)
+    # Rebuild from scratch: stale dirs from removed skills would otherwise
+    # linger, and the collision-disambiguation below would misfire on reruns.
+    if SKILLS_DIR.exists():
+        shutil.rmtree(SKILLS_DIR)
+    SKILLS_DIR.mkdir()
     MANIFEST_DIR.mkdir(exist_ok=True)
 
     md_files = []

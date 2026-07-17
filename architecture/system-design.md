@@ -109,7 +109,7 @@ Design systems that meet their actual numbers — QPS, data volume, latency, ava
 
 - **Hot keys/tenants**: one celebrity user or whale tenant concentrates load a partition scheme assumed uniform — plan for skew: hot-key replication, tenant isolation tiers, per-tenant limits (see caching hot keys, data-tables noisy neighbor).
 - **Thundering herds on recovery**: everything reconnecting/refilling at once after an outage (metastable failure — see production-debugging); design reconnect jitter, connection backoff, and warm-up throttles *into* the system.
-- **Data gravity in migrations**: the architecture evolves, the 5 TB doesn't — every "we'll just move to X" plan must include the online migration path (dual-write/backfill/verify — see legacy-migrations) or it's fiction.
+- **Data gravity in migrations**: the architecture evolves, the 5 TB doesn't — every "we'll just move to X" plan must include the online migration path (dual-write/backfill/verify — see refactoring) or it's fiction.
 - **Fan-out writes (social-graph shapes)**: one action → N followers' feeds; at high N, precompute-on-write flips to compute-on-read for whales — hybrid strategies by follower count are the standard answer.
 - **Long-tail payloads**: median request 2 KB, p99.9 is a 40 MB upload on the same path — separate the paths (direct-to-object-storage with signed URLs) or the whale requests starve the small ones.
 - **Cold start / empty system**: caches empty, autoscaler at minimum, JIT cold — launch-day and region-failover behavior differ from steady state; drill them.
@@ -129,7 +129,7 @@ Design systems that meet their actual numbers — QPS, data volume, latency, ava
 
 - Load-test the real topology to find the actual ceiling (not the guessed one) — a day of load testing beats a quarter of speculative scaling; test to *failure*, note the failure mode, that's your next-bottleneck document.
 - Instrument the leading indicators first (queue depth, pool saturation, replication lag, p99 per hop) — capacity problems telegraph weeks ahead through these (see observability).
-- Shorten the dependency chains on the latency-critical path:每 each removed hop cuts tail latency more than optimizing any single hop.
+- Shorten the dependency chains on the latency-critical path: each removed hop cuts tail latency more than optimizing any single hop.
 - Precompute what's read hot and computed cold (rollups, feeds, denormalized views) with an events-driven refresh (see event-driven) — the cheapest 10× read win after caching.
 - Re-run the five-numbers exercise quarterly against reality: growth curves bend; the architecture's assumptions should be versioned and re-checked like dependencies.
 - Practice the next move before it's urgent: the replica promotion, the shard split, the service extraction — game-day them at small scale so the real one is a rehearsal, not a premiere (see production-debugging).

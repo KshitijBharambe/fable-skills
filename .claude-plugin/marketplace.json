@@ -1,5 +1,5 @@
 {
-  "name": "kshitij-marketplace",
+  "name": "KshitijBharambe-marketplace",
   "owner": {
     "name": "KshitijBharambe"
   },
@@ -7,7 +7,7 @@
     {
       "name": "fable-skills",
       "source": "./",
-      "description": "50 expert software-engineering skills across AI, backend, frontend, architecture, security, UX, and more."
+      "description": "55 expert software-engineering skills across AI, backend, frontend, architecture, security, testing, UX, deployment, and more."
     }
   ]
 }

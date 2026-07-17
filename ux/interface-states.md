@@ -44,7 +44,7 @@ Design the non-ideal 80% of an interface's life — empty states, loading states
 ## Workflow
 
 1. **Build the state matrix**: rows = views/regions, columns = the five states. Fill every cell with a design or a named pattern. Empty cells are future bugs.
-2. **Get real latency numbers** (p50/p95 per data source) — the loading design follows the distribution, not the demo环境. A p95 of 4 s needs skeleton+progress; designing for the 200 ms p50 alone ships spinner purgatory for the tail.
+2. **Get real latency numbers** (p50/p95 per data source) — the loading design follows the distribution, not the demo environment. A p95 of 4 s needs skeleton+progress; designing for the 200 ms p50 alone ships spinner purgatory for the tail.
 3. **Apply the loading ladder** per region: delay indicators ~100–150 ms before showing (debounce the flash); skeletons for structured content, spinners only for small/unknown-shape regions; one loading treatment per view level (screen vs region vs inline-button) — never three spinners stacked.
 4. **Differentiate the four empties** per view and design each: first-use empties get: what this is (one line), why it matters (one line), one primary action, optionally an illustration that doesn't outweigh the action. No-results empties get the query echoed + one-click filter reset.
 5. **Classify failures and write the copy**: per failure class (network, validation, permission, server, timeout, conflict) apply the three-questions template; map codes → human copy centrally (no raw `ECONNRESET` reaching pixels); attach request-ID discreetly.

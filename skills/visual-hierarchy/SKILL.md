@@ -94,7 +94,7 @@ Control where the eye goes and in what order — using size, weight, color, spac
 
 ## Failure Modes
 
-- **Uniform spacing死 mush**: 16 px between everything → no groups, no rhythm; the layout is technically tidy and completely unreadable.
+- **Uniform-spacing mush**: 16 px between everything → no groups, no rhythm; the layout is technically tidy and completely unreadable.
 - **Emphasis inflation**: every stakeholder's element got bolded; the screen is all headline. Rationing was never enforced.
 - **Box-itis**: every group in a bordered card, cards inside cards; borders doing work space should do. The UI reads as a wireframe someone shipped.
 - **Missing de-emphasis**: primary is styled, but secondary text is full-black 16 px too — so nothing recedes and the primary can't win.
@@ -112,7 +112,7 @@ Control where the eye goes and in what order — using size, weight, color, spac
 - **Accessibility zoom (200%)**: spacing in fixed px compresses relative to enlarged text; verify reflow at zoom — hierarchy should degrade to a sane single column.
 - **Print/export surfaces**: muted grays that carry hierarchy on screen can vanish on paper/PDF — check contrast in export paths.
 - **Notification/badge collisions**: badges and dots are emphasis grenades; more than 2–3 visible at once and they cancel each other.
-- **Marketing-page exception**: display sections legitimately break app rules (centered text, giant type) — the skill is keeping那 that voice out of the product UI.
+- **Marketing-page exception**: display sections legitimately break app rules (centered text, giant type) — the skill is keeping that voice out of the product UI.
 
 ## Tradeoffs
 

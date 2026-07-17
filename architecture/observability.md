@@ -62,7 +62,7 @@ Instrument systems so 3 a.m. questions — is it up, is it slow, who's affected,
 ## Heuristics
 
 - Wide events beat many events: one rich log line per request per service (all the fields) out-answers twenty breadcrumb lines — and costs less.
-- Never log: secrets, tokens, passwords, full PII, raw card data — enforce with scrubbing middleware + CI grep, not vigilance (see web-security); hash user identifiers where correlation matters but identity shouldn't leak.
+- Never log: secrets, tokens, passwords, full PII, raw card data — enforce with scrubbing middleware + CI grep, not vigilance (see security); hash user identifiers where correlation matters but identity shouldn't leak.
 - Log levels mean things: ERROR = a human should eventually look (alertable in aggregate); WARN = suspicious, tolerated; INFO = business events; DEBUG = off in prod, sample-able on demand. An ERROR that's expected behavior is mislabeled noise that devalues the level.
 - The health endpoint should exercise real shallow dependencies (DB ping, cache ping) — gray failures hide behind static-200 health checks (see production-debugging).
 - Deploy markers on every dashboard: "what changed" is the first incident question; make it a glance (see production-debugging).

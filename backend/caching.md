@@ -65,7 +65,7 @@ Add caches (Redis, in-process, CDN, HTTP) that make systems faster without makin
 
 Invalidation choice:
 - If all writers are in one codebase → delete-on-write triggered in the write path (after commit) + TTL backstop.
-- Else if writers are多 multiple services → event-driven invalidation off a change stream (CDC/outbox events) + TTL backstop.
+- Else if writers are multiple services → event-driven invalidation off a change stream (CDC/outbox events) + TTL backstop.
 - Else (writers unknowable: manual SQL, external systems) → TTL-only, with TTL = product-approved staleness bound.
 
 Redis eviction policy:

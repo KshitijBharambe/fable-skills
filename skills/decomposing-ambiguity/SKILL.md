@@ -32,7 +32,7 @@ Turn fog into a workable problem: restate what's actually being asked, surface t
 - **A good decomposition cuts along seams of independence, not along the org chart or the noun list.** The test of a cut: can this piece be answered/built/validated without holding the other pieces in your head? Cuts that leave every piece entangled with every other piece ("frontend part, backend part" of a fundamentally unclear feature) are re-labelings, not decompositions (see system-design service boundaries — same seam-finding instinct at a different altitude).
 - **Hidden assumptions live in the words everyone thinks are obvious.** "User," "done," "fast," "real-time," "secure," "migrated" — each is a bag of unexamined decisions. The expert move is to force quantification and instantiation: "fast" becomes a number with a percentile; "user" becomes three named personas or one; "done" becomes a checklist (see planning-and-estimation definition-of-done). The clarifying questions worth asking are the ones whose answers *change what you'd build* — question count is not the metric; decision-changing answers are.
 - **Ask questions in batches, hypothesis-first.** Twenty questions delivered serially is an interrogation and makes stakeholders stop answering. The expert states a strawman ("here's what I think you mean — X for Y users, measured by Z; what's wrong with it?") because people correct a wrong concrete far better than they specify a blank (see elaborating specs generally; forms — same principle as good defaults). Wrong-on-purpose beats blank.
-- **The first piece to attack is chosen by risk economics, not comfort.** Resolve first whichever unknown is (a) most likely to invalidate everything else, or (b) nearly free to check. Everything else waits. Teams that start with the comfortable piece build three weeks of scaffolding around an unexamined assumption that dies on contact (see convergent-evaluation information-buying; planning-and-estimation walking skeleton).
+- **The first piece to attack is chosen by risk economics, not comfort.** Resolve first whichever unknown is (a) most likely to invalidate everything else, or (b) nearly free to check. Everything else waits. Teams that start with the comfortable piece build three weeks of scaffolding around an unexamined assumption that dies on contact (see brainstorming information-buying; planning-and-estimation walking skeleton).
 
 ## Workflow
 
@@ -41,7 +41,7 @@ Turn fog into a workable problem: restate what's actually being asked, surface t
 3. **List the load-bearing words** in the restatement ("user," "fast," "sync," "migrate") and instantiate each: numbers, named cases, percentiles, concrete examples. Every word that survives uninstantiated is an assumption in hiding.
 4. **Write the assumption ledger**: everything being taken as true, each tagged epistemic (go look — assign who/where) or essential (needs a decision — assign whom), plus verified/cheap-to-check/carry-as-risk.
 5. **Cut the problem along independence seams**: pieces answerable/buildable separately, each with a one-sentence "resolved when…" Note dependencies between pieces explicitly (an arrow list, not a mural).
-6. **Scope explicitly**: write the not-doing list with the same care as the doing list — deferred pieces with the reason, so scope creep has to argue with a document instead of a memory (see change-request thinking).
+6. **Scope explicitly**: write the not-doing list with the same care as the doing list — deferred pieces with the reason, so scope creep has to argue with a document instead of a memory (see planning-and-estimation: scope discipline).
 7. **Pick the first piece by risk economics**: highest invalidation-power or lowest check-cost. Say why out loud — "we're checking X first because if it's false, nothing else matters."
 8. **Timebox the resolution of that piece** and set the tripwire: what answer, by when, or the question escalates (see research timeboxes — same discipline).
 9. **Re-decompose after each resolved piece** — answers change the map; the decomposition is a living document for exactly as long as the problem is alive.
@@ -63,7 +63,7 @@ Turn fog into a workable problem: restate what's actually being asked, surface t
 ## Heuristics
 
 - The question behind "can we just…?" is never about capability — answer the unstated cost/risk question instead.
-- If you can't write the acceptance test, you can't write the code — the test-first instinct applies to problem statements before it applies to functions (see legacy-migrations characterization: same move against a different fog).
+- If you can't write the acceptance test, you can't write the code — the test-first instinct applies to problem statements before it applies to functions (see refactoring characterization: same move against a different fog).
 - Three concrete examples beat any abstract definition: "walk me through the last time this happened" extracts more spec than an hour of "what should it do."
 - Count decision-changing answers, not questions asked: if an answer wouldn't change what you build, don't ask it (yet).
 - The words "obviously," "just," "simply," and "everyone knows" mark burial sites of assumptions — dig there first.
@@ -89,7 +89,7 @@ Turn fog into a workable problem: restate what's actually being asked, surface t
 
 - **Solving the stated solution**: six weeks building the requested caching layer; the slowness was an N+1 query (see postgres; root-cause-analysis) — nobody restated the problem, so nobody looked.
 - **Clarification theater**: twenty questions asked, none decision-changing; stakeholder patience spent, fog intact — questions as procrastination-with-props.
-- **Analysis as a residence**: the decomposition polished for weeks while the cheap-to-check assumption sat uncheckd; experts *resolve* pieces, they don't landscape them (see convergent-evaluation: analysis has a budget).
+- **Analysis as a residence**: the decomposition polished for weeks while the cheap-to-check assumption sat uncheckd; experts *resolve* pieces, they don't landscape them (see brainstorming: analysis has a budget).
 - **Guessing on essential ambiguity**: the conflict-resolution behavior nobody decided, decided silently by an engineer at 6pm, discovered by users — essential ambiguity needs an owner's decision, not a quiet default (or at minimum a *loud* default in the ledger).
 - **Noun-list decomposition**: "the database part, the API part, the UI part" of a problem whose actual unknowns run through all three — re-labeling that leaves every risk uncut (see planning-and-estimation: horizontal slicing).
 - **The average of two problems**: two stakeholders' incompatible restatements quietly merged into one blurred spec; the shipped thing is precisely nobody's need — conflicts must surface, not blend.
@@ -105,14 +105,14 @@ Turn fog into a workable problem: restate what's actually being asked, surface t
 - **Research-shaped problems**: when the unknown is "is this possible at all," decomposition yields spikes with kill criteria, not tasks with estimates (see research; planning-and-estimation when-not-to-plan).
 - **Cross-team seams**: a piece whose resolution lives in another team's backlog is a dependency risk, not a task — track it as such, with the escalation path pre-agreed (see planning-and-estimation integration costs).
 - **The confidently wrong instantiation**: stakeholders will confirm a restatement that's subtly wrong to end the meeting — confirm with an example, not a nod ("so concretely: Maria uploads a 40MB file on hotel wifi, and she should see…?").
-- **Legacy fog**: "make it work like the old system" where nobody fully knows what the old system does — the decomposition routes through characterization (see legacy-migrations characterization) before through anyone's memory.
+- **Legacy fog**: "make it work like the old system" where nobody fully knows what the old system does — the decomposition routes through characterization (see refactoring characterization) before through anyone's memory.
 
 ## Tradeoffs
 
 - **Clarifying vs momentum**: every question costs stakeholder patience and calendar time; every unasked decision-changing question costs rework. Spend questions where answers change the build; spend strawmen everywhere else.
 - **Restating vs presuming rapport**: forced restatement can read as pedantic when trust is high and the domain is shared — calibrate ceremony to stakes and to how often this pair of people has been burned before.
 - **Decomposition granularity vs coordination overhead**: finer pieces are easier to attack and estimate but multiply hand-offs and status surface (see planning-and-estimation: the coordination tax) — cut until pieces are attackable, then stop.
-- **Deciding-by-default vs blocking on owners**: a loud documented default keeps motion but occasionally ships a wrong guess; blocking on the owner is safe but converts their calendar into your critical path. Route by reversibility (see convergent-evaluation door-classification).
+- **Deciding-by-default vs blocking on owners**: a loud documented default keeps motion but occasionally ships a wrong guess; blocking on the owner is safe but converts their calendar into your critical path. Route by reversibility (see brainstorming door-classification).
 - **Scope discipline vs responsiveness**: the not-doing list protects focus but can ossify — pair it with an explicit revisit trigger, not a "never."
 - **Speed vs correctness of the framing itself**: an 80% right framing now usually beats a 98% framing in two weeks — except on one-way doors, where framing errors are the most expensive errors there are (see judgment-under-uncertainty).
 
@@ -120,8 +120,8 @@ Turn fog into a workable problem: restate what's actually being asked, surface t
 
 - Template the ledger: a standing four-column doc (assumption / tag / owner / status) per project — the artifact reusable across every ambiguous request, and the anti-relitigation record later (see technical-writing decision docs).
 - Practice the restatement reflex until it's sub-verbal: every incoming request, restate before responding, even trivially — reps on cheap cases build the muscle for expensive ones.
-- Maintain a domain phrasebook: the load-bearing words of *your* product ("account," "active," "sync") pre-instantiated once, so each new problem doesn't re-litigate the vocabulary (see model-domain thinking; define-language work).
-- Run pre-mortems on the framing, not just the plan: "it's six months later and we solved the wrong problem — what was it?" (see convergent-evaluation pre-mortems) — framing failures are cheaper to catch as fiction.
+- Maintain a domain phrasebook: the load-bearing words of *your* product ("account," "active," "sync") pre-instantiated once, so each new problem doesn't re-litigate the vocabulary (see domain-modeling).
+- Run pre-mortems on the framing, not just the plan: "it's six months later and we solved the wrong problem — what was it?" (see brainstorming pre-mortems) — framing failures are cheaper to catch as fiction.
 - Score your own history: for the last three projects, which assumption killed or bent the schedule? The pattern (usually: an essential ambiguity everyone treated as epistemic) tells you where your ledger discipline leaks.
 - Pair with planning explicitly: this skill ends where the pieces are known; planning-and-estimation sequences and prices them; the hand-off artifact is the decomposition with dependencies — keep them one document.
 

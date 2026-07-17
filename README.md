@@ -1,6 +1,6 @@
 # Fable's Expert Skills Pack
 
-50 expert software-engineering skills for [Claude Code](https://claude.com/claude-code), spanning AI, backend, frontend, architecture, security, UX, debugging, and engineering judgment.
+55 expert software-engineering skills for [Claude Code](https://claude.com/claude-code), spanning AI, backend, frontend, architecture, security, testing, UX, deployment, debugging, and engineering judgment.
 
 ## Install
 
@@ -25,15 +25,21 @@ Once installed, the skills auto-load by their descriptions whenever a relevant t
 Skills live in [`skills/`](skills/), one folder per skill with a `SKILL.md`. Categories:
 
 - **AI** — agents, evals, prompt-engineering, rag
-- **Backend** — api-design, async-processing, authentication, authorization, caching, postgres
+- **Backend** — api-design, async-processing, auth, caching, data-modeling, domain-modeling, postgres
 - **Frontend** — component-architecture, forms, frontend-performance, state-management
-- **Architecture** — system-design, event-driven, observability
-- **Aesthetics** — color, typography, motion, visual-hierarchy, design-language
-- **UX** — ai-product-ux, dashboard-ux, data-tables, interface-states, onboarding
-- **Security** — web-security, secrets-and-supply-chain
+- **Architecture** — system-design, event-driven, observability, resilience-engineering
+- **Aesthetics** — color, typography, motion, visual-hierarchy, design-language, layout-and-spacing
+- **UX** — ux-fundamentals, accessibility, ai-product-ux, dashboard-ux, data-tables, interface-states, onboarding
+- **Security** — security (web, secrets & supply chain)
+- **Testing** — testing-strategy
+- **Infrastructure** — ci-cd, deployment, compliance-and-privacy
 - **Debugging** — root-cause-analysis, concurrency-bugs, memory-leaks, production-debugging
-- **Meta / judgment** — decomposing-ambiguity, judgment-under-uncertainty, planning-and-estimation, first-principles, divergent-thinking, convergent-evaluation
-- Plus code-review, refactoring, legacy-migrations, technical-writing, technical-leadership, product-thinking, research, learning-new-stacks, optimization-method, abstraction-and-simplicity, ci-cd.
+- **Meta / judgment** — decomposing-ambiguity, judgment-under-uncertainty, planning-and-estimation, first-principles, brainstorming
+- Plus code-review, refactoring (incl. legacy migrations), technical-writing, technical-leadership, product-thinking, research, learning-new-stacks, optimization-method, abstraction-and-simplicity.
+
+### Changed in v2.0.0
+
+Merged (8 → 4): divergent-thinking + convergent-evaluation → **brainstorming**; authentication + authorization → **auth**; refactoring + legacy-migrations → **refactoring**; web-security + secrets-and-supply-chain → **security**. Added 9 new skills: testing-strategy, accessibility, resilience-engineering, data-modeling, domain-modeling, ux-fundamentals, layout-and-spacing, deployment, compliance-and-privacy.
 
 ## Editing / regenerating
 

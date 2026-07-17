@@ -114,7 +114,7 @@ Hunt and fix races, deadlocks, lost updates, and async ordering bugs — the int
 - **Fork/threads + connection pools**: forked workers sharing the parent's sockets/connections produce interleaved protocol streams — re-initialize pools post-fork; the corruption looks like impossible protocol errors.
 - **File systems as shared state**: `exists → write` races between processes; `O_EXCL`/atomic rename (`write temp → rename`) are the filesystem's CAS; NFS makes even those interesting.
 - **Read-your-own-write across replicas**: the "race" is replication lag wearing a race costume — the fix is routing/stickiness, not locks (see postgres).
-- **Time-of-check-to-time-of-use in auth**: permission checked, then used seconds later after revocation — security-flavored TOCTOU; re-check at use for sensitive ops (see authorization).
+- **Time-of-check-to-time-of-use in auth**: permission checked, then used seconds later after revocation — security-flavored TOCTOU; re-check at use for sensitive ops (see auth).
 - **GC pauses and lease expiry**: a node holding a lease stalls (GC, VM pause), lease expires, another node takes over, the first wakes and *keeps writing* — fencing tokens (monotonic epoch checked at the resource) are the only real fix; "the lease guarantees exclusivity" alone does not.
 
 ## Tradeoffs

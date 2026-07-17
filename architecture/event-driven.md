@@ -38,7 +38,7 @@ Design systems that communicate through events — event schemas, sagas, CQRS, e
 
 ## Workflow
 
-1. **Model the events from the domain**: name the business facts (event storming with domain experts is the efficient route — see model-domain thinking): past-tense, entity-anchored, meaningful to a business person (`InvoiceSettled`, not `RowUpdated`). Data-change events (`XChanged {diff}`) are a smell of CDC-thinking where domain-thinking was needed.
+1. **Model the events from the domain**: name the business facts (event storming with domain experts is the efficient route — see domain-modeling): past-tense, entity-anchored, meaningful to a business person (`InvoiceSettled`, not `RowUpdated`). Data-change events (`XChanged {diff}`) are a smell of CDC-thinking where domain-thinking was needed.
 2. **Classify each interaction**: event (many/varying consumers, fact announcement) vs command (one accountable handler) vs synchronous call (caller needs the answer now). Write the classification down; it's the architecture.
 3. **Get the consistency budget signed** per flow: max acceptable lag, what the UX shows in the gap, which reads must be read-your-writes (those stay in the write model's transaction/database).
 4. **Design the schemas**: envelope (event_id, type, version, occurred_at, correlation_id, causation_id, producer) + payload (state needed to act; IDs to verify); additive-evolution rules; registry/repo with review.

@@ -58,7 +58,7 @@ Replace vibes with measurement in LLM systems: build eval suites from real cases
 - If a metric like BLEU/ROUGE/embedding-similarity is proposed for open-ended generation → almost always wrong (they measure token overlap, not quality); use them only where reference-closeness genuinely IS the task (translation-ish); otherwise rubric-judge.
 - If n is small and the delta is small → run k trials, paired stats, and read flipped cases; if still ambiguous, the honest answer is "no detectable difference — decide on cost/latency instead."
 - If the suite passes but you're still nervous → your nervousness knows about cases the suite doesn't; write them down as cases (nervousness is unlabeled domain knowledge).
-- If evals are proposed *after* launch to justify a decision already made → that's not an eval, that's a press release; the gate only works前 pre-decision (see brainstorming/convergent-evaluation: criteria before options — same bias, same cure).
+- If evals are proposed *after* launch to justify a decision already made → that's not an eval, that's a press release; the gate only works pre-decision (see brainstorming: criteria before options — same bias, same cure).
 
 ## Heuristics
 

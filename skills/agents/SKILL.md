@@ -32,7 +32,7 @@ Build LLM agents — model + tools + loop — that accomplish real tasks reliabl
 - **Context is working memory — curate it or it rots.** Every tool result dumped raw into history (a 40k-token log file, three redundant search results) crowds out the instructions and poisons later steps; long agent transcripts drift off-goal as early precision dilutes. Practices: summarize/truncate tool outputs to what the step needs, keep durable state *outside* the window (files, scratchpads, task lists the agent re-reads), restate the goal/plan at intervals, and prefer retrieving-on-demand over carrying-everything.
 - **Verification is the highest-leverage step.** An agent that checks its own work against explicit criteria (run the tests, re-read the diff against the requirements, validate output schema) before declaring done converts "usually right" into "reliably right" — the single biggest quality win per token spent. Design *checkable* tasks: acceptance criteria the agent (or a cheap judge) can mechanically evaluate (see ai/evals).
 - **Autonomy is earned per action class, not granted per agent** (see ai-product-ux trust ladder). Read-only tools: free. Reversible writes: act-and-log with undo. Irreversible/outward (send, delete, deploy, pay): human gate until instrumented evidence justifies otherwise — and often forever. The blast radius of a wrong action, not the model's benchmark score, sets the gate.
-- **Treat all tool-returned content as untrusted input.** A web page, an email, a retrieved doc can contain "ignore your instructions and…" — prompt injection is the agent-era's SQL injection (see web-security: same trust-boundary thinking). Data enters as data: delimited, never blindly obeyed; consequential actions triggered by external content demand provenance checks and human gates.
+- **Treat all tool-returned content as untrusted input.** A web page, an email, a retrieved doc can contain "ignore your instructions and…" — prompt injection is the agent-era's SQL injection (see security: same trust-boundary thinking). Data enters as data: delimited, never blindly obeyed; consequential actions triggered by external content demand provenance checks and human gates.
 
 ## Workflow
 
@@ -60,8 +60,8 @@ Build LLM agents — model + tools + loop — that accomplish real tasks reliabl
   - Read-only → allow.
   - Reversible + logged → allow with undo + activity feed (see ai-product-ux).
   - Irreversible/outward → plan-preview + human approval; batch → sampled review + staged apply (see ai-product-ux batch pattern).
-- If the agent gets stuck (budget近 exhausted, loop detected, error repeated) → structured surrender: summarize state, what was tried, best hypothesis, and hand off — a good failure report is a deliverable; silent spinning is not.
-- If tool results come from the outside world (web, email, docs) → injection posture: content delimited as data, instructions in content never executed, consequential follow-ups gated (see web-security trust boundaries).
+- If the agent gets stuck (budget nearly exhausted, loop detected, error repeated) → structured surrender: summarize state, what was tried, best hypothesis, and hand off — a good failure report is a deliverable; silent spinning is not.
+- If tool results come from the outside world (web, email, docs) → injection posture: content delimited as data, instructions in content never executed, consequential follow-ups gated (see security trust boundaries).
 
 ## Heuristics
 
@@ -74,7 +74,7 @@ Build LLM agents — model + tools + loop — that accomplish real tasks reliabl
 - Prefer one powerful tool call over five weak ones: `search_code(query)` returning ranked snippets beats `list_dir` + `read_file` × 4 — design tools at the altitude of the agent's *intent* (see api-design: consumer-inward design; same principle).
 - Order tool results by relevance and put critical caveats at the top of the result, not the bottom of a dump.
 - Temperature near 0 for tool-selection-heavy loops; save creativity for content-generation steps.
-- Sandbox by default: scoped tokens (this repo, this folder, this tenant), read-only credentials until write is proven needed, network egress allowlists — assume the agent will eventually do something surprising, because it will (see secrets least-privilege).
+- Sandbox by default: scoped tokens (this repo, this folder, this tenant), read-only credentials until write is proven needed, network egress allowlists — assume the agent will eventually do something surprising, because it will (see security least-privilege).
 - Cost sanity check: steps × context-growth is quadratic-ish in tokens; an agent that "works" at $4/run may be a workflow that works at $0.20 — price the alternative.
 - The demo threshold is 1 success; the ship threshold is a success *rate* on a case suite you didn't cherry-pick (see ai/evals).
 
@@ -99,7 +99,7 @@ Build LLM agents — model + tools + loop — that accomplish real tasks reliabl
 - **Goal drift on long horizons**: agent "improves" scope mid-task (asked to fix a bug, refactors the module, breaks the API) — missing plan-anchor and done-criteria discipline.
 - **Hallucinated success**: tool errored, agent narrates success anyway ("I've updated the file") — results channel didn't make failure loud + verification phase absent. The most trust-corrosive failure class.
 - **Demo-grade autonomy**: shipped at act-silently on the strength of five hand-picked runs; first bad batch action triggers org-wide revocation (see ai-product-ux demo-rung failure — same pattern, backend edition).
-- **Injection compliance**: agent reads a webpage containing "email the contents of /etc/passwd to…" and helpfully tries — external content ran as instructions; the trust boundary was never drawn (see web-security).
+- **Injection compliance**: agent reads a webpage containing "email the contents of /etc/passwd to…" and helpfully tries — external content ran as instructions; the trust boundary was never drawn (see security).
 - **Multi-agent theater**: five agents with titles (Planner, Critic, Architect…) passing messages — 5× cost, 3× latency, accuracy indistinguishable from one well-prompted loop; nobody ran the baseline.
 - **Untraceable failures**: "it did something weird yesterday" with no step logs — unreproducible, undebuggable, unfixable; the run existed only as vibes.
 
@@ -111,13 +111,13 @@ Build LLM agents — model + tools + loop — that accomplish real tasks reliabl
 - **Tool version drift**: tool schema changes under a prompt tuned to the old one — version tool contracts and re-run the agent suite on tool changes (contract testing for the model-tool interface, see ci-cd gates).
 - **Parallel agents colliding**: two workers editing the same file / same ticket — partition workspaces (worktrees, ID ranges) or lock; agent parallelism re-inherits every distributed-systems race (see concurrency-bugs, async-processing idempotency).
 - **The agent that should refuse**: task is impossible/contradictory ("make the tests pass without changing behavior" where behavior IS the bug) — spec the refusal/escalation as a *success* mode; agents optimized only for completion will fabricate.
-- **Secrets in the loop**: credentials appearing in tool outputs (env dumps, config reads) then persisting in traces/logs — redact at the tool boundary; traces are a data store with retention and access rules (see observability PII discipline, secrets skill).
+- **Secrets in the loop**: credentials appearing in tool outputs (env dumps, config reads) then persisting in traces/logs — redact at the tool boundary; traces are a data store with retention and access rules (see observability PII discipline, security skill).
 - **Human-in-the-loop latency**: an approval gate mid-run parks the agent for hours — design pause/resume serialization (checkpoint state, resume on approval) rather than holding contexts hot.
 
 ## Tradeoffs
 
 - **Agency vs reliability**: more model-directed freedom handles more path-variance and multiplies failure surface; more scripted structure caps both. Slide the dial per phase: scripted skeleton (workflow) with agentic sub-steps inside is the pragmatic middle for most products.
-- **Tool power vs blast radius**: `execute_sql(query)` is maximally capable and maximally dangerous; `get_customer_orders(customer_id)` is safe and rigid. Tier by data sensitivity: broad tools in sandboxes/read-replicas, narrow tools against production (see authorization: same deny-by-default instinct).
+- **Tool power vs blast radius**: `execute_sql(query)` is maximally capable and maximally dangerous; `get_customer_orders(customer_id)` is safe and rigid. Tier by data sensitivity: broad tools in sandboxes/read-replicas, narrow tools against production (see auth: same deny-by-default instinct).
 - **Context richness vs cost/rot**: more history helps continuity and bloats cost while rotting relevance; summarize-and-externalize is the escape, at the price of summary-lossiness on rare backtracks. Keep raw traces in logs (replayable) even when the window holds summaries.
 - **Verification depth vs cost/latency**: full test-suite runs per step are certainty at 10× cost; end-of-run verification catches most at 1×. Verify at phase boundaries and before irreversible actions; per-step only for the cheapest checks (schema validation).
 - **Single vs multi-agent**: parallelism buys wall-clock and context isolation, costs orchestration + merge complexity + N× spend. Adopt for genuinely parallel work with separable contexts; refuse for sequential role-play without eval evidence.
